@@ -5,6 +5,8 @@ import com.example.swapispringboot.repositories.PersonajeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class PersonajeService {
     private final PersonajeRepository personajeRepository;
@@ -20,6 +22,10 @@ public class PersonajeService {
         personajeRepository.save(personaje);
 
 
+    }
+
+    public Optional<Personaje> findPersonajeById(Integer id) {
+        return personajeRepository.findById(id);
     }
 
 

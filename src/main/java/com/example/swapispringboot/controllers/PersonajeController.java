@@ -44,15 +44,14 @@ public class PersonajeController {
 
     }
 
-    @GetMapping(value = "/personaje/{id}/guardar", produces = "application/json")
-    public String guardar(@PathVariable Integer id) {
+    @GetMapping(value="/personaje/{id}/guardar", produces = "application/json")
+    public Personaje leerAPIyGuardar(@PathVariable Integer id){
         RestTemplate apiStarWars = new RestTemplate();
-        ResponseEntity<Personaje> personaje = apiStarWars.getForEntity("https://swapi.dev/api/people/" + id + "/", Personaje.class);
-        Personaje personaje1 = personaje.getBody();
-
-        personajeService.save(personaje1);
-
-        return personaje1.getName() + " - " + personaje1.getId();
+        Personaje personaje = apiStarWars
+                .getForEntity("https://swapi.dev/api/people/"+id+"/", Personaje.class)
+                .getBody();
+        personajeService.save(personaje);
+        return personaje;
     }
 }
 
