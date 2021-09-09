@@ -16,7 +16,7 @@ public class PersonajeService {
     }
 
     public void save(Personaje personaje){
-        personaje.setId(personaje.getId());
+        personaje.corregirId();
         personajeRepository.save(personaje);
 
 

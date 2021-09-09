@@ -106,10 +106,14 @@ public class Personaje {
     }
 
     public Integer getId() {
-        return Integer.valueOf(url.substring(29, url.length() - 1));
+        return id;
     }
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public void corregirId(){
+        this.id = Integer.valueOf(url.substring(29, url.length() - 1));
     }
 }
