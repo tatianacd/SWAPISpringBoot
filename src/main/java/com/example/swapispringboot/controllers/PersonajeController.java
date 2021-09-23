@@ -10,6 +10,9 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.List;
+import java.util.Optional;
+
 @RestController
 public class PersonajeController {
 
@@ -52,6 +55,29 @@ public class PersonajeController {
                 .getBody();
         personajeService.save(personaje);
         return personaje;
+    }
+
+    @GetMapping("/personajes")
+    public List<Personaje> findAll(){
+        return personajeService.findAll();
+    }
+
+    @GetMapping("/nombre/{nombre}")
+    public Optional<Personaje> findByNombre(@PathVariable String nombre){
+        Optional personajeBD = personajeService.findPersonajeByNombre(nombre);
+        if(personajeBD!=null){
+            return personajeBD;
+        }else{
+            RestTemplate apiStarWars = new RestTemplate();
+            Personaje personaje = apiStarWars
+                    .getForEntity("https://swapi.dev/api/people/?search=+nombre+", Personaje.class)
+                    .getBody();
+            personajeService.save(personaje);
+            return personajeBD;
+        }
+
+
+
     }
 }
 
